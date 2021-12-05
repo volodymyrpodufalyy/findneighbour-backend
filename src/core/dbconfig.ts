@@ -5,7 +5,7 @@ require("dotenv").config();
 
 let sequelize = new Sequelize();
 
-process.env.NODE_ENV === "production"
+process.env.NODE_ENV !== "development"
   ? (sequelize = new Sequelize(process.env.PROD_DB_URL as string, {
       database: process.env.PROD_DB_DATABASE,
       host: process.env.PROD_DB_HOST,
