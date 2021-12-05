@@ -28,10 +28,6 @@ const swaggerSpec = swaggerJSDoc(options);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname, "client/build")));
-// }
-
 const start = async () => {
   try {
     await sequelize.authenticate();
