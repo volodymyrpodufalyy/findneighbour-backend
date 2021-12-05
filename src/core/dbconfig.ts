@@ -3,31 +3,33 @@ import { AddInfo } from "../models/SAddInfo";
 import { User } from "../models/SUser";
 require("dotenv").config();
 
-let sequelize = new Sequelize();
+const devConfig = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
-process.env.NODE_ENV !== "development"
-  ? (sequelize = new Sequelize(process.env.PROD_DB_URL as string, {
-      database: process.env.PROD_DB_DATABASE,
-      host: process.env.PROD_DB_HOST,
-      username: process.env.PROD_DB_USER,
-      password: process.env.PROD_DB_PASSWORD,
-      dialect: "postgres",
-      port: 5432,
-      dialectOptions: {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false,
-        },
-      },
-      models: [User, AddInfo],
-    }))
-  : (sequelize = new Sequelize({
-      database: process.env.DB_NAME,
-      dialect: "postgres",
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      storage: ":memory:",
-      models: [User, AddInfo],
-    }));
+const isProductionMode = process.env.NODE_ENV !== "development";
+
+const sequelize = new Sequelize(
+  (isProductionMode ? process.env.PROD_DB_URL : devConfig) as string,
+  {
+    database: isProductionMode
+      ? process.env.PROD_DB_DATABASE
+      : process.env.DB_NAME,
+    host: isProductionMode ? process.env.PROD_DB_HOST : process.env.DB_HOST,
+    username: isProductionMode ? process.env.PROD_DB_USER : process.env.DB_USER,
+    password: isProductionMode
+      ? process.env.PROD_DB_PASSWORD
+      : process.env.DB_HOST,
+    dialect: "postgres",
+    port: 5432,
+    dialectOptions: isProductionMode
+      ? {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false,
+          },
+        }
+      : {},
+    models: [User, AddInfo],
+  }
+);
 
 export default sequelize;
