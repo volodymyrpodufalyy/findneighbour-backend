@@ -23,7 +23,7 @@ class AddInfoController {
 
     const postData: AddInfoCreationAttributes = {
       age: req.body.age,
-      address: req.body.adress,
+      address: req.body.address,
       sex: req.body.sex,
       hasPets: req.body.pets,
       hasBadHabits: req.body.badHabits,
