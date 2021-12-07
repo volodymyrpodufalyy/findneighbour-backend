@@ -26,15 +26,17 @@ class UserController {
   };
 
   getMe = async (req: express.Request, res: express.Response) => {
-    const id = (req.user as User).id;
-    const user = await User.findByPk(Number(id), { include: { all: true } });
+    // const id = (req.user as User).id;
+    // const user = await User.findByPk(Number(id), { include: { all: true } });
 
-    if (!user) {
-      return res.status(404).json({
-        message: "Sorry, User not found",
-      });
-    }
-    return res.json(user);
+    // if (!user) {
+    //   return res.status(404).json({
+    //     message: "Sorry, User not found",
+    //   });
+    // }
+    return res.json({
+      user: "User 111",
+    });
   };
 
   findUsers = async (req: any, res: express.Response) => {
