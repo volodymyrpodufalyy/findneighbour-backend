@@ -114,17 +114,20 @@ class UserController {
           );
         })
         .catch((err) => {
-          if (err instanceof UniqueConstraintError) {
-            res.status(500).json({
-              status: "error",
-              message: "Such user already exists",
-            });
-          } else {
-            res.status(500).json({
-              status: "error",
-              message: err,
-            });
-          }
+          console.log(err, "error");
+
+          return res.status(500).json(JSON.stringify(err));
+          // if (err instanceof UniqueConstraintError) {
+          //   res.status(500).json({
+          //     status: "error",
+          //     message: "Such user already exists",
+          //   });
+          // } else {
+          //   res.status(500).json({
+          //     status: "error",
+          //     message: err,
+          //   });
+          // }
         });
     }
   };
