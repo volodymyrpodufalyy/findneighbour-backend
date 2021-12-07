@@ -21,6 +21,7 @@ export default (
   if (
     req.path === "/" ||
     req.path === "/user/signin" ||
+    req.path === "/user/me" ||
     req.path === "/user/signup" ||
     req.path === "/user/verify" ||
     swaggerRegExp.test(req.path)
