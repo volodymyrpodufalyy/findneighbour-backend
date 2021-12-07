@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import path from "path";
+import cors from "cors";
 import { createServer } from "http";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
@@ -27,6 +27,7 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(cors());
 
 const start = async () => {
   try {
