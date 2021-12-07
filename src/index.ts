@@ -14,6 +14,17 @@ import createRoutes from "./core/routes";
 import createSocket from "./core/socket";
 
 const app = express();
+app.use(
+  cors({
+    origin: "https://findneighbour-backend.herokuapp.com/",
+    credentials: true,
+  })
+);
+app.all("/*", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 const http = createServer(app);
 const io = createSocket(http);
 
@@ -27,7 +38,6 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use(cors({ origin: true, credentials: true }));
 
 const start = async () => {
   try {
