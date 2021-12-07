@@ -26,17 +26,15 @@ class UserController {
   };
 
   getMe = async (req: express.Request, res: express.Response) => {
-    // const id = (req.user as User).id;
-    // const user = await User.findByPk(Number(id), { include: { all: true } });
+    const id = (req.user as User).id;
+    const user = await User.findByPk(Number(id), { include: { all: true } });
 
-    // if (!user) {
-    //   return res.status(404).json({
-    //     message: "Sorry, User not found",
-    //   });
-    // }
-    return res.json({
-      user: "User 111",
-    });
+    if (!user) {
+      return res.status(404).json({
+        message: "Sorry, User not found",
+      });
+    }
+    return res.json(user);
   };
 
   findUsers = async (req: any, res: express.Response) => {
@@ -114,20 +112,17 @@ class UserController {
           );
         })
         .catch((err) => {
-          console.log(err, "error");
-
-          return res.status(500).json(JSON.stringify(err));
-          // if (err instanceof UniqueConstraintError) {
-          //   res.status(500).json({
-          //     status: "error",
-          //     message: "Such user already exists",
-          //   });
-          // } else {
-          //   res.status(500).json({
-          //     status: "error",
-          //     message: err,
-          //   });
-          // }
+          if (err instanceof UniqueConstraintError) {
+            res.status(500).json({
+              status: "error",
+              message: "Such user already exists",
+            });
+          } else {
+            res.status(500).json({
+              status: "error",
+              message: err,
+            });
+          }
         });
     }
   };
