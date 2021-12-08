@@ -5,7 +5,7 @@ import cloudinary from "../core/cloudinary";
 
 class UploadController {
   create = (req: express.Request, res: express.Response) => {
-    const userId = (req.user as User).id;
+    const user = req.user as User;
 
     const file: any = req.file;
 
@@ -19,7 +19,10 @@ class UploadController {
             size: file.bytes,
             ext: file.format,
             url: file.url,
-            user: userId,
+            user: {
+              id: user.id,
+              fullname: user.fullname,
+            },
           };
 
           const uploadedFile = new UploadModel(fileData);
