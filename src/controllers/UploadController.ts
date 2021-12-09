@@ -4,8 +4,9 @@ import { UploadModel } from "../models";
 import cloudinary from "../core/cloudinary";
 
 class UploadController {
-  create = async (req: express.Request, res: express.Response) => {
+  create = (req: express.Request, res: express.Response) => {
     const userId = (req.user as User).id;
+
     const file: any = req.file;
 
     cloudinary.uploader
@@ -23,17 +24,20 @@ class UploadController {
 
           const uploadedFile = new UploadModel(fileData);
 
-          try {
-            res.json({
-              status: "success",
-              file: uploadedFile,
+          uploadedFile
+            .save()
+            .then((fileObj: any) => {
+              res.json({
+                status: "success",
+                file: fileObj,
+              });
+            })
+            .catch((err) => {
+              res.json({
+                status: "error",
+                message: err,
+              });
             });
-          } catch (e) {
-            return res.status(500).json({
-              status: "error",
-              message: error,
-            });
-          }
         }
       })
       .end(file.buffer);
