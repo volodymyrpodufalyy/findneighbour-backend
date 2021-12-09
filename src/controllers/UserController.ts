@@ -99,8 +99,8 @@ class UserController {
             {
               from: process.env.GMAIL_USER,
               to: postData.email,
-              subject: "Підтвердження пошти від FindNeighbour",
-              html: `Для того, щоб підтвердити пошту, перейдіть на <a href="http://localhost:3000/signup/verify?hash=${obj.confirm_hash}">за цим посиланням</a>`,
+              subject: "Findneighbour account verification",
+              html: `To verify your account go to <a href="http://localhost:80/signup/verify?hash=${obj.confirm_hash}">by this link</a>`,
             },
             function (err: Error | null, info: SentMessageInfo) {
               if (err) {
