@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUpload extends Document {
   filename: string;
@@ -6,7 +6,10 @@ export interface IUpload extends Document {
   ext: string;
   url: string;
   message: string;
-  user: string;
+  user: {
+    id: { type: Schema.Types.Number };
+    fullname: { type: Schema.Types.String };
+  };
 }
 
 const UploadSchema = new Schema(
@@ -15,14 +18,17 @@ const UploadSchema = new Schema(
     size: Number,
     ext: String,
     url: String,
-    message: { type: Schema.Types.ObjectId, ref: "Message" , require: true },
-    user: { type: Schema.Types.ObjectId, ref: "User", require: true }
+    message: { type: Schema.Types.ObjectId, ref: "Message", require: true },
+    user: {
+      id: { type: Schema.Types.Number },
+      fullname: { type: Schema.Types.String },
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const UploadModel = mongoose.model<IUpload>('Upload', UploadSchema);
+const UploadModel = mongoose.model<IUpload>("Upload", UploadSchema);
 
 export default UploadModel;

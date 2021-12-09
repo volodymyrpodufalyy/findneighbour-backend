@@ -88,6 +88,18 @@ const createRoutes = (app: express.Express, io: socket.Server) => {
    *         description: Verification status.
    */
   app.get("/user/verify", UserController.verify);
+
+  /**
+   * @swagger
+   * /user/verify:
+   *   get:
+   *     tags: ["user"]
+   *     summary: Find users
+   *     description: Finds user by a given query
+   *     responses:
+   *       200:
+   *         description: List of users.
+   */
   app.get("/user/find", UserController.findUsers);
   app.get("/user/:id", UserController.show);
   app.delete("/user/:id", UserController.delete);

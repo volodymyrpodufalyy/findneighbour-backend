@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import path from "path";
+import cors from "cors";
 import { createServer } from "http";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
@@ -14,6 +14,12 @@ import createRoutes from "./core/routes";
 import createSocket from "./core/socket";
 
 const app = express();
+app.use(cors());
+app.all("/*", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 const http = createServer(app);
 const io = createSocket(http);
 
