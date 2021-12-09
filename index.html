@@ -11,7 +11,7 @@
     <script>
 
         window.onload = function() {
-            var socket = io("https://find-neighbour.ml/");
+            var socket = io("http://localhost:80");
 
         window.socket = socket;        
         socket.on("SERVER:NEW_MESSAGE", function(msg) {
