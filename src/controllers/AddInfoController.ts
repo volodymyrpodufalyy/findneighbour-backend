@@ -32,6 +32,9 @@ class AddInfoController {
       isMarried: req.body.maritalStatus,
       phoneNumber: req.body.phoneNumber,
       moreAbout: req.body.moreAboutUser,
+      avatarUrl: req.body.avatarUrl,
+      contactWithMeUrl: req.body.contactWithMeUrl
+
     };
 
     try {
@@ -81,7 +84,10 @@ class AddInfoController {
       isMarried: req.body.maritalStatus,
       phoneNumber: req.body.phoneNumber,
       moreAbout: req.body.moreAboutUser,
+      avatarUrl: req.body.avatarUrl,
+      contactWithMeUrl: req.body.contactWithMeUrl
     };
+
 
     try {
       const addInfo = await AddInfo.update(postData, {
@@ -99,6 +105,8 @@ class AddInfoController {
           });
         }
       });
+
+
       if (addInfo) {
         return res.json("updated");
       } else {
@@ -194,8 +202,8 @@ class AddInfoController {
     }
 
     if (
-      (endAge && startAge) !== "undefined" &&
-      (endAge && startAge) !== undefined
+        (endAge && startAge) !== "undefined" &&
+        (endAge && startAge) !== undefined
     ) {
       queryObj.startAge = parseInt(startAge);
       queryObj.endAge = parseInt(endAge);
@@ -225,8 +233,8 @@ class AddInfoController {
 
     if (badHabits !== "undefined" && badHabits !== undefined) {
       isTrueQuery(badHabits)
-        ? (queryObj.badHabits = true)
-        : (queryObj.badHabits = false);
+          ? (queryObj.badHabits = true)
+          : (queryObj.badHabits = false);
       queryArray.push({
         hasBadHabits: queryObj.badHabits,
       });
