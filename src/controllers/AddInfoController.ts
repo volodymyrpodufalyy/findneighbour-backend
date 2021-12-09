@@ -8,7 +8,7 @@ interface FilterQuery {
   user_id: number;
   address: string;
   sex: string;
-  badHabits: boolean;
+  hasBadHabits: boolean;
   pets: boolean;
   startAge: number;
   endAge: number;
@@ -32,6 +32,9 @@ class AddInfoController {
       isMarried: req.body.maritalStatus,
       phoneNumber: req.body.phoneNumber,
       moreAbout: req.body.moreAboutUser,
+      avatarUrl: req.body.avatarUrl,
+      contactWithMeUrl: req.body.contactWithMeUrl
+
     };
 
     try {
@@ -81,7 +84,10 @@ class AddInfoController {
       isMarried: req.body.maritalStatus,
       phoneNumber: req.body.phoneNumber,
       moreAbout: req.body.moreAboutUser,
+      avatarUrl: req.body.avatarUrl,
+      contactWithMeUrl: req.body.contactWithMeUrl
     };
+
 
     try {
       const addInfo = await AddInfo.update(postData, {
@@ -99,6 +105,8 @@ class AddInfoController {
           });
         }
       });
+
+
       if (addInfo) {
         return res.json("updated");
       } else {
@@ -177,7 +185,7 @@ class AddInfoController {
     const userId = req.query.id;
 
     const pets = req.query.pets;
-    const badHabits = req.query.badHabits;
+    const hasBadHabits = req.query.badHabits;
     const sex = req.query.sex;
     const address = req.query.adress;
 
@@ -194,8 +202,8 @@ class AddInfoController {
     }
 
     if (
-      (endAge && startAge) !== "undefined" &&
-      (endAge && startAge) !== undefined
+        (endAge && startAge) !== "undefined" &&
+        (endAge && startAge) !== undefined
     ) {
       queryObj.startAge = parseInt(startAge);
       queryObj.endAge = parseInt(endAge);
@@ -223,12 +231,12 @@ class AddInfoController {
       });
     }
 
-    if (badHabits !== "undefined" && badHabits !== undefined) {
-      isTrueQuery(badHabits)
-        ? (queryObj.badHabits = true)
-        : (queryObj.badHabits = false);
+    if (hasBadHabits !== "undefined" && hasBadHabits !== undefined) {
+      isTrueQuery(hasBadHabits)
+          ? (queryObj.hasBadHabits = true)
+          : (queryObj.hasBadHabits = false);
       queryArray.push({
-        hasBadHabits: queryObj.badHabits,
+        hasBadHabits: queryObj.hasBadHabits,
       });
     }
     if (sex !== "undefined" && sex !== undefined) {

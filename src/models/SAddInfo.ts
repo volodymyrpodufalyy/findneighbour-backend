@@ -20,6 +20,8 @@ export interface AddInfoCreationAttributes {
   isMarried: boolean;
   phoneNumber: string;
   moreAbout: string;
+  avatarUrl: string;
+  contactWithMeUrl: string;
 }
 
 @Table({ tableName: "additional_info", underscored: true })
@@ -61,6 +63,12 @@ export class AddInfo extends Model<AddInfo, AddInfoCreationAttributes> {
 
   @Column({ type: DataType.STRING(150) })
   moreAbout!: string;
+
+  @Column({ type: DataType.STRING(500) })
+  avatarUrl!: string;
+
+  @Column({ type: DataType.STRING(500) })
+  contactWithMeUrl!: string;
 
   @ForeignKey(() => User)
   @Column({ type: DataType.INTEGER, unique: true })
