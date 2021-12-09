@@ -100,7 +100,7 @@ class UserController {
               from: process.env.GMAIL_USER,
               to: postData.email,
               subject: "Findneighbour account verification",
-              html: `To verify your account go to <a href="http://localhost:80/signup/verify?hash=${obj.confirm_hash}">by this link</a>`,
+              html: `To verify your account go to <a href="https://find-neighbour.ml/signup/verify?hash=${obj.confirm_hash}">by this link</a>`,
             },
             function (err: Error | null, info: SentMessageInfo) {
               if (err) {
